@@ -1,0 +1,9 @@
+.card{
+    padding: 25px;
+    box-shadow: 0 0 5px #000;
+    margin: 10px;
+}
+
+.card.social{
+    border: 1px solid blueviolet;
+}

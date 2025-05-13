@@ -1,5 +1,5 @@
 import './App.css';
-import Feature from './Features';
+import Feature from './Component/Features';
 
 function App({ name }) {
   const data = [
