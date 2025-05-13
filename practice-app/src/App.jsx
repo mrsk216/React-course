@@ -1,76 +1,39 @@
-import { useState } from 'react'
-import './App.css'
+import './App.css';
+import Feature from './Features';
 
-function App() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    term: '',
-  });
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [term, setTerm] = useState('');
+function App({ name }) {
+  const data = [
+    {
+      icon: 'https://frontdeskvisitor.com/assets/images/img/uploads/employee-management.png',
+      title: 'Tracking Visitors in Real-time',
+      description: 'Real-time visitor tracking has become an essential tool for businesses, event organizers, and service providers seeking to understand and optimize customer interactions. By monitoring visitor movements and behavior as they happen, organizations gain a precise view of engagement levels, helping them assess which areas or features draw the most attention. This real-time insight enables proactive decision-making: adjustments can be made instantly to streamline visitor flow, reduce congestion, and improve access to popular features or displays.'
+    },
+    {
+      icon: 'https://frontdeskvisitor.com/assets/images/img/uploads/clock.png',
+      title: 'Pre Booking Visitor',
+      description: "Pre-booking a visitor refers to the process of scheduling and reserving an appointment, ticket, or access for a visitor in advance, often through an online platform or physical booking system. This concept is widely applied in various industries, including hospitality, events, tourism, and even office management, ensuring that visitor's experiences are smooth, organized, and personalized.",
+      social: [
+        {
+          site: 'Facebook'
+        }
+      ]
+    },
+    {
+      icon: 'https://frontdeskvisitor.com/assets/images/img/uploads/keys.png',
+      title: 'Key Management',
+      description: 'Key management refers to the process of managing cryptographic keys used to protect sensitive data and ensure secure communication within a system. It involves various stages, including key generation, storage, distribution, rotation, and eventual destruction. Proper key management is essential for maintaining the confidentiality, integrity, and authenticity of encrypted data. Without effective key management, even the most advanced encryption systems can be compromised.'
+    },
+    {
+      icon: 'https://frontdeskvisitor.com/assets/images/img/uploads/delivery.png',
+      title: 'Handling Deliveries',
+      description: 'Handling deliveries is a crucial part of logistics and supply chain management, ensuring that products are safely and efficiently delivered to customers or businesses. It involves a series of steps from receiving an order to ensuring the timely and accurate arrival of goods at their intended destination. The process typically includes order verification, packaging, labeling, and choosing the appropriate transportation method based on factors like distance, urgency, and cost.'
+    },
+  ];
   
-  function handleFormData(e) {
-    e.preventDefault();
-    
-    setFormData({
-      name: name,
-      email: email,
-      password: password,
-      term: term
-    });
-  }
   return (
     <>
-      <h1>Registration Form</h1>
-      <form onSubmit={handleFormData}>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input type="text" name='name' onChange={e => setName(e.target.value)}/>
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input type="email" name='email'  onChange={e => setEmail(e.target.value)}/>
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input type="password" name='password'  onChange={e => setPassword(e.target.value)}/>
-        </div>
-        <div>
-          <input type="checkbox" name="term"  onChange={e => setTerm(e.target.value)}/>
-          <label htmlFor="term">I agree with term and conditions</label>
-        </div>
-        <div>
-          <button type="submit">Sign Up</button>
-        </div>
-      </form>
-      <h1>Registered User Info</h1>
-
-      {formData.name != '' ? (
-        <table border={1}>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Term</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{ formData.name }</td>
-              <td>{formData.email}</td>
-              <td>{formData.password}</td>
-              <td>{formData.term == 'on' ? 'Agree' : ''}</td>
-            </tr>
-          </tbody>
-        </table>
-      ) : ''}
-      
+      <h1>Features</h1>
+      <Feature farid={data} name={name} />
     </>
   )
 }
