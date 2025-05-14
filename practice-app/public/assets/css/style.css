@@ -1,9 +1,65 @@
-.card{
-    padding: 25px;
-    box-shadow: 0 0 5px #000;
-    margin: 10px;
+:root{
+    --body-bg: #fff;
+    --body-text: #111;
+    --bg-overlay: #1111119e;
+    --nav-hover: #ffffff9e;
 }
 
-.card.social{
-    border: 1px solid blueviolet;
+body{
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: var(--body-bg);
+    color: var(--body-text);
+    overflow-x: hidden;
+}
+
+.btn-custom{
+    background-color: var(--body-bg);
+    color: var(--body-text);
+    padding: 10px 50px;
+    position: relative;
+}
+
+.btn-custom::before{
+    content: '';
+    border: 1px solid var(--body-bg);
+    border-radius: 7px;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+}
+
+.btn-custom:hover{
+    background-color: var(--nav-hover);
+    color: var(--bg-overlay);
+}
+
+.navbar,.navbar-sticky{
+    position: absolute !important;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 3;
+    color: var(--body-bg);
+}
+
+.navbar-sticky{
+    position: fixed !important;
+}
+
+.nav-link{
+    color: var(--body-bg);
+}
+
+.nav-link.active,.nav-link:hover{
+    color: var(--nav-hover) !important;
+}
+
+.home-hero{
+    background: var(--bg-overlay) url('https://www.hdwallpapers.in/download/leaves_branch_shadows_wall_light_black_and_white_background_4k_hd_black_and_white-2560x1440.jpg') no-repeat center/cover;
+    background-blend-mode: overlay;
+    height: 100vh;
+    color: var(--body-bg);
 }
