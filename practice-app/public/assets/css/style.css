@@ -63,3 +63,7 @@ body{
     height: 100vh;
     color: var(--body-bg);
 }
+
+.faUserGraduate{
+    color: tomato;
+}
