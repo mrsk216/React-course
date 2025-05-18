@@ -1,5 +1,7 @@
 import Header from './Component/Header'
 import { FaHireAHelper, FaUserGraduate } from "react-icons/fa"
+import About from './Component/About'
+import Service from './Component/Service'
 
 function App() {
   
@@ -26,6 +28,10 @@ function App() {
           </div>
         </div>
       </section>
+
+      <About />
+      
+      <Service />
     </>
   );
 }
