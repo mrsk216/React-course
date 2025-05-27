@@ -1,24 +1,25 @@
-// import UseStatePractice from "./Component/UseState";
-// import UseEffectPractice from "./Component/UseEffect";
-import { useState } from "react";
-import Card from './Component/Card'
-import { counter } from "./Context/counterContext";
+import { useState, useEffect, useRef } from "react";
+
 function App() {
-  const [number, setNumber] = useState(0);
+  // const pageTitle = useRef(0);
+
+  // useEffect(() => {
+  //   console.log(pageTitle.current);
+  //   pageTitle.current.style.color = 'red';
+  // });
+
+  const [input, setInput] = useState('');
+  const num = useRef(0);
+
+  useEffect(() => {
+    num.current = num.current + 1;
+  });
+
   return (
     <>
-      {/* <UseStatePractice /> */}
-      {/* <UseEffectPractice /> */}
-      <div className="wrapper">
-        <counter.Provider value={number}>
-          <Card />
-        </counter.Provider>
-        
-        <div className="d-flex gap-3 mt-3">
-          <button className="btn btn-secondary" onClick={() => setNumber(number + 1)}>Increase</button>
-          <button className="btn btn-secondary" onClick={() => setNumber(number -1)}>Decrease</button>
-        </div>
-      </div>
+      <h6>useRef Practice</h6>
+      <input type="text" className="form-control" value={input} onChange={(e) => setInput(e.target.value)} maxLength={10}/>
+      <small className="text-danger">{num.current > 10 ? 'Maximum text is 10' : num.current < 5 ? 'Minimum text is 5' : ''}</small>
     </>
   );
 }
