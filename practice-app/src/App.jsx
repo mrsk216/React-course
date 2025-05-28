@@ -1,25 +1,77 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useReducer, useEffect } from "react";
+import { reducer } from "./Reducer";
+
+const students = [
+  {id:1, name:"Safiq"},
+  {id:2, name:"Rafiq"}
+];
+
+
 
 function App() {
-  // const pageTitle = useRef(0);
+  // const [studentData, setStudentData] = useState(students);
+  // const [isMessage, setIsMessage] = useState(false);
+  // const [messageText, setMessageText] = useState("");
+  const [studentPage, dispatch] = useReducer(reducer, {
+    studentData: students,
+    isMessage: false,
+    messageText: ""
+  });
+  const [newStudent, setNewStudent] = useState("");
 
-  // useEffect(() => {
-  //   console.log(pageTitle.current);
-  //   pageTitle.current.style.color = 'red';
-  // });
+  const handleFormData = (e) => {
+    e.preventDefault();
 
-  const [input, setInput] = useState('');
-  const num = useRef(0);
+    // setStudentData((prevData) => [
+    //   ...prevData,
+    //   {id: new Date().getTime().toString(), name:newStudent}
+    // ]);
+    // setMessageText("New Student Added");
+    // setIsMessage(true);
+
+    
+    const newStudentObj = { id: new Date().getTime().toString(), name: newStudent };
+    dispatch({ type: "ADD", payload: newStudentObj });
+
+    setNewStudent("");
+
+  }
+
+  const handleRemoveSudent = (id) => {
+    dispatch({
+      type: "Remove",
+      payload: id
+    })
+  }
 
   useEffect(() => {
-    num.current = num.current + 1;
-  });
+    setTimeout(() => {
+      dispatch({type: "HideMessage",payload:null})
+    }, 5000);
+  },[studentPage.isMessage,studentPage.messageText])
 
   return (
     <>
-      <h6>useRef Practice</h6>
-      <input type="text" className="form-control" value={input} onChange={(e) => setInput(e.target.value)} maxLength={10}/>
-      <small className="text-danger">{num.current > 10 ? 'Maximum text is 10' : num.current < 5 ? 'Minimum text is 5' : ''}</small>
+      <h1 className="mb-5">useReducer Practice</h1>
+      
+      <h3>Student Add Form</h3>
+      <form onSubmit={handleFormData}>
+        <input type="text" placeholder="Enter Name" value={newStudent} onChange={(e) => setNewStudent(e.target.value)} />
+        <button type="submit">Add</button>
+      </form>     
+
+      <h3 className="mt-4">Students List</h3>
+      <ol>
+        {studentPage.studentData?.map((student) => (
+          <li key={student.id}>
+            {student.name}
+            <button onClick={() => handleRemoveSudent(student.id)}>Remove</button>
+          </li>
+        ))}
+      </ol>
+
+
+      {studentPage.isMessage && <small className="text-success position-fixed bottom-0 end-0">{ studentPage.messageText }</small>}
     </>
   );
 }
