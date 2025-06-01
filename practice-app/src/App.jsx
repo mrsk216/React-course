@@ -1,77 +1,37 @@
-import { useState, useReducer, useEffect } from "react";
-import { reducer } from "./Reducer";
-
-const students = [
-  {id:1, name:"Safiq"},
-  {id:2, name:"Rafiq"}
-];
-
-
+import { useState, useCallback, useMemo } from "react";
+import Counter from "./Counter";
+import Button from "./Button";
 
 function App() {
-  // const [studentData, setStudentData] = useState(students);
-  // const [isMessage, setIsMessage] = useState(false);
-  // const [messageText, setMessageText] = useState("");
-  const [studentPage, dispatch] = useReducer(reducer, {
-    studentData: students,
-    isMessage: false,
-    messageText: ""
-  });
-  const [newStudent, setNewStudent] = useState("");
+  const [count1, setCount1] = useState(1);
+  const [count2, setCount2] = useState(1);
 
-  const handleFormData = (e) => {
-    e.preventDefault();
+  const handleCount1 = useCallback(() => {
+    setCount1((prev) => prev + 1);
+  }, []);
 
-    // setStudentData((prevData) => [
-    //   ...prevData,
-    //   {id: new Date().getTime().toString(), name:newStudent}
-    // ]);
-    // setMessageText("New Student Added");
-    // setIsMessage(true);
-
-    
-    const newStudentObj = { id: new Date().getTime().toString(), name: newStudent };
-    dispatch({ type: "ADD", payload: newStudentObj });
-
-    setNewStudent("");
-
-  }
-
-  const handleRemoveSudent = (id) => {
-    dispatch({
-      type: "Remove",
-      payload: id
-    })
-  }
-
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch({type: "HideMessage",payload:null})
-    }, 5000);
-  },[studentPage.isMessage,studentPage.messageText])
-
+  const handleCount2 = useCallback(() => {
+    setCount2((prev) => prev * 2);
+  }, []);
+  
+  const check = useMemo(() => {
+    for (let index = 0; index < 100000; index++) {
+      console.log(index);
+    } 
+    return 'All checked';
+  },[]);
   return (
     <>
-      <h1 className="mb-5">useReducer Practice</h1>
-      
-      <h3>Student Add Form</h3>
-      <form onSubmit={handleFormData}>
-        <input type="text" placeholder="Enter Name" value={newStudent} onChange={(e) => setNewStudent(e.target.value)} />
-        <button type="submit">Add</button>
-      </form>     
-
-      <h3 className="mt-4">Students List</h3>
-      <ol>
-        {studentPage.studentData?.map((student) => (
-          <li key={student.id}>
-            {student.name}
-            <button onClick={() => handleRemoveSudent(student.id)}>Remove</button>
-          </li>
-        ))}
-      </ol>
-
-
-      {studentPage.isMessage && <small className="text-success position-fixed bottom-0 end-0">{ studentPage.messageText }</small>}
+      <div className="text-center">
+        <h1 className="mb-5">useCallback & useMemo Practice</h1>    
+        
+        <Counter count={`Count1 value is ${count1}`} />
+        <Button action={handleCount1} name="Increment Count1" />
+        <hr />
+        <Counter count={`Count2 value is ${count2}`} />
+        <Button action={handleCount2} name="Increment Count2"/>
+      </div>
+      <div className="alert alert-success text-center mt-5">{ check }</div>
     </>
   );
 }
