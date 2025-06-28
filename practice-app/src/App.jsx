@@ -1,26 +1,52 @@
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router'
-import Header from './Header';
-import Home from './Home';
-import About from './About';
-import Blog from './Blog';
-import SingleBlog from './SingleBlog';
-import Error from './Error';
+import { useEffect, useState } from "react";
+import axios from 'axios'
 
 function App() {
-  const admin = 'Arif Hosain';
+  const [products, setProducts] = useState(null);
+
+  useEffect(() => {
+    const fetchingData = async () => {
+      const response = await axios.get('https://api.restful-api.dev/objects');
+      setProducts(response.data);
+    }
+
+    fetchingData();
+  });
+  const formData = [{ name: 'Akash', age: '25' }];
+  const handleFormData = async (e) => {
+    e.preventDefault();
+
+    const response = await axios.post(
+      'https://api.restful-api.dev/objects',
+      formData,
+      {
+        headers: {
+          'Content-Type' : 'application/json',
+        }
+      }
+    );
+
+    if (response.status === 200) {
+      //
+    } else {
+      console.error('Something is wrong')
+    }
+    
+  }
+
+  const handleDeleteData = async (id) => {
+    const response = await axios.delete('https://api.restful-api.dev/objects/' + id);
+
+    
+  }
+
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About name={admin} />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:category" element={<SingleBlog />} />
-        <Route path='/sk'>
-          <Navigate to="/" />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <h1>Fetching Api</h1>
+      <form onSubmit={handleFormData}>
+        <button onClick={() => handleDeleteData(5)}>Delete</button>
+      </form>
+    </>
   );
 }
 
