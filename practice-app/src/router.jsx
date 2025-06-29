@@ -1,16 +1,21 @@
 import { createBrowserRouter } from 'react-router'
 import App from './App';
-import Blogs from './Blogs';
+import Register from './Register';
+import Dashboard from './Dashboard';
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: "/",
         element: <App />,
     },
     {
-        path: '/posts',
-        element: <Blogs />,
-    }
+        path: "/register",
+        element: <Register />,
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard />,
+    },
 ]);
 
 export default router;

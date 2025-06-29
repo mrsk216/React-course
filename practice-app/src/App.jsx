@@ -1,32 +1,42 @@
-import useFetch from "./Hooks/useFetch";
 import { Link } from "react-router";
 
-function App() {
-  const data = useFetch("https://api.restful-api.dev/objects");
-
+function App() {  
   return (
     <>
-      <div className="d-flex gap-3">
-        <h1>Fetching Api</h1>
-        <Link to={"/"}>Home</Link>
-        <Link to={"/posts"}>Post</Link>
+      <div className="container">
+        <div className="row justify-content-center my-5">
+          <div className="col-md-8 col-lg-6 col-xl-4">
+            <form>
+              <h1 className="text-center mb-5">Login Your Account</h1>
+              <div className="mb-3">
+                <label htmlFor="Email" className="form-label">
+                  Email
+                </label>
+                <input type="email" className="form-control" />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+                <input type="password" className="form-control" />
+              </div>
+              <div className="text-center mb-3">
+                <button type="submit" className="btn btn-primary w-100">
+                  Login
+                </button>
+              </div>
+              <div className="text-center mb-3">
+                <small>
+                  Do not have an account?
+                  <Link to={"/register"} className="ms-2">
+                    Create new account
+                  </Link>
+                </small>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Colour</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data && data?.map((product, i) => (
-            <tr key={i}>
-              <td>{product.name}</td>
-              <td>{product.data?.color}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </>
   );
 }
