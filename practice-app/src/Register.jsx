@@ -1,9 +1,15 @@
 import axios from "axios";
-import React ,{ useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 
 function Register() {
     const navigate = useNavigate();
+    useEffect(() => {
+        const authData = localStorage.getItem("auth");
+        if (authData) {
+          navigate("/dashboard");
+        }
+      }, [navigate]);
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -31,6 +37,7 @@ function Register() {
         );
 
         if(response.status === 200){
+            localStorage.setItem("auth", JSON.stringify(response.data));
             setUser({
                 name: "",
                 email: "",
